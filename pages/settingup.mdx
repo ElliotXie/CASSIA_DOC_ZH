@@ -9,7 +9,7 @@ install.packages("reticulate")
 install.packages("devtools")
 ```
 
-接下来，您需要安装 CASSIA 包。您可以直接安装：
+接下来，您需要安装 CASSIA 包。您可以直接用下面的代码安装：
 
 ```R
 # 安装 CASSIA 包
@@ -19,7 +19,8 @@ devtools::install_github("ElliotXie/CASSIA/CASSIA_R")
 
 ## 设置 Python 环境
 
-CASSIA 依赖 Python 进行部分后端处理。加载 CASSIA 包时，它会尝试自动设置所需的 Python 环境。但是，如果遇到问题，您可以使用 `setup_cassia_env()` 函数手动创建和配置必要的 Python 环境。
+CASSIA 依赖 Python 进行部分后端处理。加载 CASSIA 包时，将会自动设置所需的 Python 环境，不需要额外操作。
+如果环境没有自动设置成功，您可以使用 `setup_cassia_env()` 函数手动创建和配置必要的 Python 环境。
 
 ```R
 library(CASSIA)
@@ -28,16 +29,12 @@ library(CASSIA)
 setup_cassia_env(conda_env = "cassia_env")
 ```
 
-此函数将：
-
-- 如果名为 `cassia_env` 的 Conda 环境不存在，则创建一个新的环境。
-- 安装所需的 Python 包：`openai`、`pandas`、`numpy`、`scikit-learn`、`requests` 和 `anthropic`。
 
 ## 设置 API 密钥
 
-要使用像 OpenAI GPT4o 这样的大模型，您需要使用 `setLLMApiKey()` 函数设置您的 API 密钥。
+要使用像 OpenAI GPT4o 这样的大模型，您需要使用 `setLLMApiKey()` 函数告诉R你的API密钥并保存
 
-**注意：您必须至少设置一个 API 密钥才能使用 CASSIA。**
+**注意：您必须至少设置一个 API 密钥才能使用 CASSIA。具体设置方法可以参照github首页文档，大概需要花费2分钟的时间**
 
 ```R
 # 对于 OpenAI
