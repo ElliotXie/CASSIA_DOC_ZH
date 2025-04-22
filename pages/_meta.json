@@ -1,0 +1,14 @@
+{
+  "index": "Introduction",
+  "settingup": "Setting Up CASSIA",
+  "fastmode": "Fast Mode",
+  "singlecluster": "Single Cluster Analysis",
+  "batchcluster": "Batch Processing",
+  "score": "Quality Scoring and Report Generation",
+  "option1uncertainty": "Uncertainty Quantification (Optional)",
+  "option2annotationboost": "Annotation Boost (Optional)",
+  "option3comparecelltype": "Compare Cell Types (Optional)",
+  "option4subclustering": "Subclustering Analysis (Optional)",
+  "option5annotationboostextra": "Annotation Boost Extra (Optional)",
+  "troubleshot": "Troubleshooting"
+} 
