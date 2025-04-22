@@ -2,6 +2,9 @@
 
 CASSIA 的快速模式提供了一个简化的、单行解决方案，用于运行完整的分析流程。该模式在单个函数调用中结合了注释、评分和注释增强，使用优化的默认参数。
 
+总的来说，CASSIA的 注释agent 和 检查agent 首先会接收到marker文件，并互相沟通以得出初步的注释结果与逻辑推理，之后 评估agent 会对注释的结果进行打分，如果分数低于阈值的注释会被送到 注释增强agent 中继续分析，注释增强agent 可以阅读整个marker file而不是仅仅前50。这一个工作流结束之后，你会得到三份文件，分别是基本注释的报告，注释结果的表格，和注释增强的结果报告。用户也可以通过
+
+
 ### 基本用法
 ```R
 runCASSIA_pipeline(
@@ -45,6 +48,23 @@ runCASSIA_pipeline(
 2. 质量评分和推理过程
 3. 摘要报告
 4. 注释增强报告
+
+
+
+### CASSIA + Seurat
+
+CASSIA的注释结果可以直接转化到Seurat中使用下面的方法
+
+cassia_results_path <- "path to your _score.csv" #填入评估agent的输出文件
+
+# Test the function
+seurat_obj <- add_cassia_to_seurat(
+  seurat_obj = seurat_obj,  #所使用的Seurat文件
+  cassia_results_path = cassia_results_path,
+  cluster_col = "celltype", # Seurat文件中对应的标注列
+  cassia_cluster_col="True.Cell.Type" #CASSIA结果中的簇名，如果没有更改不需要特别指定
+)
+
 
 ### 性能提示
 - 为获得最佳性能，根据您系统的 CPU 核心数调整 `max_workers`

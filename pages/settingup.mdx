@@ -35,7 +35,7 @@ setup_cassia_env(conda_env = "cassia_env")
 
 ## 设置 API 密钥
 
-要使用像 OpenAI 的 GPT-4、Anthropic 的 Claude 或通过 OpenRouter 的模型等 LLM，您需要使用 `setLLMApiKey()` 函数设置您的 API 密钥。
+要使用像 OpenAI GPT4o 这样的大模型，您需要使用 `setLLMApiKey()` 函数设置您的 API 密钥。
 
 **注意：您必须至少设置一个 API 密钥才能使用 CASSIA。**
 
@@ -56,29 +56,16 @@ setLLMApiKey("your_openrouter_api_key", provider = "openrouter", persist = TRUE)
 
 ## 如何选择模型和提供商
 
-有三个提供商可供选择：`openai`、`anthropic` 和 `openrouter`。每个提供商都有自己的模型和定价。
-请注意，模型名称必须完全按照下面所示进行设置，否则将找不到模型。
+您可以为注释和评分选择任何模型。下面列出了一些经典模型。大多数当前流行的模型都由 OpenRouter 支持，尽管它们在 CASSIA 论文中没有经过广泛的基准测试 — 欢迎您尝试它们。
 
 ### OpenAI
-
-OpenAI 有三个最推荐的模型可供选择：
-
-- `gpt-4o`
-- `gpt-4o-mini`
-- `o1-mini`
-
-`gpt-4o` 是最平衡且推荐的模型。`gpt-4o-mini` 是 `gpt-4o` 的更便宜、更快的版本。`o1-mini` 是功能更强大的版本，能够进行更复杂的推理，但成本更高，在默认设置下不推荐使用。
+- `gpt-4o`：平衡的性能和成本（比较推荐）
 
 ### Anthropic
+- `claude-3-5-sonnet-20241022`：高性能模型
+- `claude-3-7-sonnet-latest`：最新模型
 
-Anthropic 有一个推荐模型：这是性能最佳的强大模型。
-
-- `claude-3-5-sonnet-20241022`
-
-### OpenRouter
-
-OpenRouter 是一个平台，提供对主要提供商支持的几乎所有模型的访问。实际上建议使用 OpenRouter 访问 claude-3-5-sonnet，因为它具有最高的速率限制。我们也可以用它来访问一些开源模型，例如 llama-3.2 和 deepseek2。这些开源模型便宜得多，性能略有下降。
-
-- `anthropic/claude-3.5-sonnet`
-- `openai/gpt-4o-2024-11-20`
-- `meta-llama/llama-3.2-90b-vision-instruct`
+### OpenRouter（推荐）
+- `anthropic/claude-3.5-sonnet`：用来Claude的访问限制
+- `openai/gpt-4o-2024-11-20`：替代访问 GPT-4o 的方式
+- `deepseek/deepseek-chat-v3-0324`：基本免费且效果媲美 GPT-4o（非常推荐）
