@@ -1,14 +1,14 @@
 {
-  "index": "Introduction",
-  "settingup": "Setting Up CASSIA",
-  "fastmode": "Fast Mode",
-  "singlecluster": "Single Cluster Analysis",
-  "batchcluster": "Batch Processing",
-  "score": "Quality Scoring and Report Generation",
-  "option1uncertainty": "Uncertainty Quantification (Optional)",
-  "option2annotationboost": "Annotation Boost (Optional)",
-  "option3comparecelltype": "Compare Cell Types (Optional)",
-  "option4subclustering": "Subclustering Analysis (Optional)",
-  "option5annotationboostextra": "Annotation Boost Extra (Optional)",
-  "troubleshot": "Troubleshooting"
+  "index": "介绍",
+  "settingup": "设置 CASSIA",
+  "fastmode": "快速模式",
+  "singlecluster": "单聚类分析",
+  "batchcluster": "批处理",
+  "score": "质量评分和报告生成",
+  "option1uncertainty": "不确定性量化（可选）",
+  "option2annotationboost": "注释增强（可选）",
+  "option3comparecelltype": "比较细胞类型（可选）",
+  "option4subclustering": "亚聚类分析（可选）",
+  "option5annotationboostextra": "额外注释增强（可选）",
+  "troubleshot": "故障排除"
 } 

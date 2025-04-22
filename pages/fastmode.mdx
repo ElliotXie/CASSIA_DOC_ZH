@@ -1,8 +1,8 @@
-# Fast Mode
+# 快速模式
 
-CASSIA's Fast Mode offers a streamlined, one-line solution for running the complete analysis pipeline. This mode combines annotation, scoring, and annotation boost in a single function call, using optimized default parameters.
+CASSIA 的快速模式提供了一个简化的、单行解决方案，用于运行完整的分析流程。该模式在单个函数调用中结合了注释、评分和注释增强，使用优化的默认参数。
 
-### Basic Usage
+### 基本用法
 ```R
 runCASSIA_pipeline(
     output_file_name = "my_analysis",
@@ -13,44 +13,44 @@ runCASSIA_pipeline(
 )
 ```
 
-### Full Parameter Options
+### 完整参数选项
 ```R
 runCASSIA_pipeline(
-    # Required parameters
-    output_file_name,     # Base name for output files
-    tissue,               # Tissue type (e.g., "brain", "blood")
-    species,              # Species (e.g., "human", "mouse")
-    marker,               # Marker file from findallmarker, path or the data obejct
+    # 必需参数
+    output_file_name,     # 输出文件的基本名称
+    tissue,               # 组织类型（例如，"brain"、"blood"）
+    species,              # 物种（例如，"human"、"mouse"）
+    marker,               # 来自 findallmarker 的标记文件，路径或数据对象
     
-    # Optional parameters with defaults
-    max_workers = 4,      # Number of parallel workers
+    # 带默认值的可选参数
+    max_workers = 4,      # 并行工作线程数
     
-    # Model configurations
-    annotation_model = "gpt-4o",             # Model for annotation
-    annotation_provider = "openai",         # Provider for annotation
-    score_model = "anthropic/claude-3.5-sonnet",  # Model for scoring
-    score_provider = "openrouter",         # Provider for scoring
-    annotationboost_model="anthropic/claude-3.5-sonnet", #Model for annotation boost
-    annotationboost_provider="openrouter", #Provider for annotation boost
+    # 模型配置
+    annotation_model = "gpt-4o",             # 用于注释的模型
+    annotation_provider = "openai",         # 用于注释的提供商
+    score_model = "anthropic/claude-3.5-sonnet",  # 用于评分的模型
+    score_provider = "openrouter",         # 用于评分的提供商
+    annotationboost_model="anthropic/claude-3.5-sonnet", #用于注释增强的模型
+    annotationboost_provider="openrouter", #用于注释增强的提供商
     
-    # Analysis parameters
-    score_threshold = 75,     # Minimum acceptable score
-    additional_info = NULL    # Additional context information
+    # 分析参数
+    score_threshold = 75,     # 最低可接受分数
+    additional_info = NULL    # 额外的上下文信息
 )
 ```
 
-### Output Files
-The pipeline generates:
-1. Initial annotation results
-2. Quality scores and reasoning
-3. Summary report
-4. Annotation boost report
+### 输出文件
+该流程生成：
+1. 初始注释结果
+2. 质量评分和推理过程
+3. 摘要报告
+4. 注释增强报告
 
-### Performance Tips
-- For optimal performance, adjust `max_workers` based on your system's CPU cores
-- Use `additional_info` to provide relevant experimental context
-- Monitor `score_threshold` to balance stringency with throughput
+### 性能提示
+- 为获得最佳性能，根据您系统的 CPU 核心数调整 `max_workers`
+- 使用 `additional_info` 提供相关的实验上下文
+- 监控 `score_threshold` 以平衡严格性和吞吐量
 
 
 
-Next we introduce each function in detail...
+接下来我们将详细介绍每个函数...

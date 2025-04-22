@@ -1,10 +1,10 @@
-# Quality Scoring
+# 质量评分
 
-Quality scoring helps evaluate the reliability of cell type annotations. CASSIA provides automated scoring functionality through the `runCASSIA_score_batch` function, which analyzes the reasoning and evidence behind each annotation.
+质量评分有助于评估细胞类型注释的可靠性。CASSIA 通过 `runCASSIA_score_batch` 函数提供自动评分功能，该函数分析每个注释背后的推理和证据。
 
-## Running Quality Scoring
+## 运行质量评分
 
-### Basic Usage
+### 基本用法
 ```R
 runCASSIA_score_batch(
     input_file = "my_annotation_full.csv",
@@ -15,63 +15,63 @@ runCASSIA_score_batch(
 )
 ```
 
-### Parameter Details
+### 参数详情
 
-- **Input/Output Files**:
-   - `input_file`: Path to the full annotation results (from `runCASSIA_batch`)
-   - `output_file`: Where to save the scored results
+- **输入/输出文件**:
+   - `input_file`: 完整注释结果的路径（来自 `runCASSIA_batch`）
+   - `output_file`: 保存评分结果的位置
    
-- **Processing Parameters**:
-   - `max_workers`: Number of parallel scoring threads
-   - Recommended: Use fewer workers than annotation step to avoid API limits if provider set to anthropic
+- **处理参数**:
+   - `max_workers`: 并行评分线程的数量
+   - 推荐：如果提供商设置为 anthropic，使用的 worker 数量应少于注释步骤，以避免 API 限制
 
-- **Model Configuration**:
-   - Recommended model: `anthropic/claude-3.5-sonnet`
-   - Recommended provider: `openrouter`
+- **模型配置**:
+   - 推荐模型: `anthropic/claude-3.5-sonnet`
+   - 推荐提供商: `openrouter`
 
-### API Provider Considerations
+### API 提供商注意事项
 
 #### OpenRouter
-- **Advantages**:
-  - Higher rate limits
-  - Easy to switch models
-- **Setup**:
+- **优点**:
+  - 更高的速率限制
+  - 易于切换模型
+- **设置**:
   ```R
   provider <- "openrouter"
   model <- "anthropic/claude-3.5-sonnet"
   ```
 
 #### Anthropic Direct
-- **Considerations**:
-  - New users have usage limits
-  - May need to reduce `max_workers`
-  - Better for smaller datasets
-- **Setup**:
+- **注意事项**:
+  - 新用户有使用限制
+  - 可能需要减少 `max_workers`
+  - 更适合较小的数据集
+- **设置**:
   ```R
   provider <- "anthropic"
   model <- "claude-3-5-sonnet-20241022"
   ```
 
-### Output Format
-The scored output file contains:
-- Original annotation data
-- Quality scores (0-100)
-- Confidence metrics
-- Detailed reasoning for scores
+### 输出格式
+评分后的输出文件包含：
+- 原始注释数据
+- 质量评分（0-100）
+- 置信度指标
+- 评分的详细推理
 
-### Interpreting Scores
+### 解读评分
 
-- **90-100**: High confidence, strong evidence
-- **76-89**: Good confidence, adequate evidence
-- **<75**: Low confidence, need to run through Annotation Boost Agent and Compare Agent
+- **90-100**: 高置信度，强有力证据
+- **76-89**: 良好置信度，充分证据
+- **<75**: 低置信度，需要通过 Annotation Boost Agent 和 Compare Agent 运行
 
-# Report Generation
+# 报告生成
 
-Generate detailed reports from your analysis. This step typically follows after quality scoring.
+从您的分析中生成详细报告。此步骤通常在质量评分之后进行。
 
-The score report includes all outputs from CASSIA, including structured outputs, conversation histories, and quality scores.
+评分报告包括 CASSIA 的所有输出，包括结构化输出、对话历史和质量评分。
 
-### Batch Reports from Scored Results
+### 从评分结果生成批量报告
 
 ```R
 runCASSIA_generate_score_report(
@@ -80,4 +80,4 @@ runCASSIA_generate_score_report(
 )
 ```
 
-_Generates individual reports and an index page from `scored_results.csv`._
+_从 `scored_results.csv` 生成单独的报告和索引页面。_

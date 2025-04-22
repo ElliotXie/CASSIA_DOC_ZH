@@ -1,33 +1,33 @@
-# Single Cluster Analysis
+# 单细胞簇分析
 
-**One Cluster CASSIA**
+**单簇 CASSIA**
 
-Analyze a single cluster of marker genes to determine the cell type.
+分析单个标记基因簇以确定细胞类型。
 
-### Example
+### 示例
 
-If you're using OpenRouter as your provider, you can specify models like `"openai/gpt-4o-2024-11-20"` or `"anthropic/claude-3.5-sonnet"`. Here are some model recommendations:
+如果您使用 OpenRouter 作为提供商，可以指定像 `"openai/gpt-4o-2024-11-20"` 或 `"anthropic/claude-3.5-sonnet"` 这样的模型。以下是一些模型推荐：
 
-- **Claude 3.5 Sonnet** (Best performance, slightly more expensive)
-    - Model ID: `"anthropic/claude-3.5-sonnet"`
-- **GPT-4o** (Balanced option)
-    - Model ID: `"openai/gpt-4o-2024-11-20"`
-- **Llama 3.2** (Open source, cost-effective)
-    - Model ID: `"meta-llama/llama-3.2-90b-vision-instruct"`
+- **Claude 3.5 Sonnet** (性能最佳，价格稍高)
+    - 模型 ID: `"anthropic/claude-3.5-sonnet"`
+- **GPT-4o** (均衡选项)
+    - 模型 ID: `"openai/gpt-4o-2024-11-20"`
+- **Llama 3.2** (开源，性价比高)
+    - 模型 ID: `"meta-llama/llama-3.2-90b-vision-instruct"`
 
-#### Example Code
+#### 示例代码
 
 ```R
-# Parameters
-model <- "openai/gpt-4o-2024-11-20"  # Model ID when using OpenRouter
+# 参数
+model <- "openai/gpt-4o-2024-11-20"  # 使用 OpenRouter 时的模型 ID
 temperature <- 0
 marker_list <- c("CD3D", "CD3E", "CD2", "TRAC")
 tissue <- "blood"
 species <- "human"
 additional_info <- NULL
-provider <- "openrouter"  # or "openai", "anthropic"
+provider <- "openrouter"  # 或 "openai", "anthropic"
 
-# Run the analysis
+# 运行分析
 result <- runCASSIA(
   model = model,
   temperature = temperature,
@@ -38,11 +38,11 @@ result <- runCASSIA(
   provider = provider
 )
 
-# View structured output
+# 查看结构化输出
 print(result$structured_output)
 
-# View conversation history
+# 查看对话历史
 print(result$conversation_history)
 ```
 
-_Note:_ When using OpenRouter, you need to specify the full model ID.
+_注意:_ 使用 OpenRouter 时，您需要指定完整的模型 ID。

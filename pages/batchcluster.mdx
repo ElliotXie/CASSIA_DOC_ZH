@@ -1,104 +1,104 @@
-# Batch Processing in CASSIA
+# CASSIA 中的批处理
 
-CASSIA supports batch processing to analyze multiple clusters simultaneously. This guide explains how to prepare your data and run batch analysis efficiently.
+CASSIA 支持批处理以同时分析多个聚类。本指南解释了如何准备数据并高效运行批量分析。
 
-### Preparing Marker Data
-You have three options for providing marker data:
+### 准备标记数据
+您有三种提供标记数据的选择：
 
-1. Create a data frame or CSV file containing your clusters and marker genes
-2. Use Seurat's `findAllMarkers` function output directly
-3. Use CASSIA's example marker data
+1. 创建包含您的聚类和标记基因的数据框或 CSV 文件
+2. 直接使用 Seurat 的 `findAllMarkers` 函数输出
+3. 使用 CASSIA 的示例标记数据
 
 ```R
-# Option 1: Load your own marker data
+# 选项 1：加载您自己的标记数据
 markers <- read.csv("path/to/your/markers.csv")
 
-# Option 2: Use Seurat's findAllMarkers output directly
-# (assuming you already have a Seurat object)
+# 选项 2：直接使用 Seurat 的 findAllMarkers 输出
+# （假设您已经有一个 Seurat 对象）
 markers <- FindAllMarkers(seurat_obj)
 
-# Option 3: Load example marker data
+# 选项 3：加载示例标记数据
 markers <- loadExampleMarkers()
 
-# Preview the data
+# 预览数据
 head(markers)
 ```
 
-#### Marker Data Format
-CASSIA accepts two formats:
+#### 标记数据格式
+CASSIA 接受两种格式：
 
-1. **FindAllMarkers Output**: The standard output from Seurat's FindAllMarkers function
-2. **Simplified Format**: A two-column data frame where:
-   - First column: cluster identifier
-   - Second column: comma-separated ranked marker genes
+1. **FindAllMarkers 输出**：Seurat 的 FindAllMarkers 函数的标准输出
+2. **简化格式**：一个两列的数据框，其中：
+   - 第一列：聚类标识符
+   - 第二列：逗号分隔的排序标记基因
 
-### Running Batch Analysis
+### 运行批量分析
 
-#### Setting Up Parameters
+#### 设置参数
 
 ```R
-# Detect available CPU cores
+# 检测可用的 CPU 核心
 available_cores <- parallel::detectCores()
 
-# Calculate recommended workers (75% of available cores)
+# 计算推荐的工作线程数（可用核心的 75%）
 recommended_workers <- floor(available_cores * 0.75)
 
 runCASSIA_batch(
-    # Required parameters
-    marker = markers,                    # Marker data (data frame or file path)
-    output_name = "my_annotation",       # Base name for output files
-    model = "gpt-4o",                     # Model to use
-    tissue = "brain",                    # Tissue type
-    species = "human",                   # Species
+    # 必需参数
+    marker = markers,                    # 标记数据（数据框或文件路径）
+    output_name = "my_annotation",       # 输出文件的基本名称
+    model = "gpt-4o",                     # 要使用的模型
+    tissue = "brain",                    # 组织类型
+    species = "human",                   # 物种
     
-    # Optional parameters
-    max_workers = recommended_workers,    # Number of parallel workers
-    n_genes = 50,                        # Number of top marker genes to use
-    additional_info = "",                # Additional context
-    provider = "openai"                  # API provider
+    # 可选参数
+    max_workers = recommended_workers,    # 并行工作线程数
+    n_genes = 50,                        # 要使用的顶部标记基因数量
+    additional_info = "",                # 附加上下文
+    provider = "openai"                  # API 提供商
 )
 ```
 
-### Parameter Details
+### 参数详情
 
-1. **Marker Gene Selection**:
-   - Default: top 50 genes per cluster
-   - Filtering criteria:
-     - Adjusted p-value < 0.05
-     - Average log2 fold change > 0.25
-     - Minimum percentage > 0.1
-   - If fewer than 50 genes pass filters, all passing genes are used
+1. **标记基因选择**：
+   - 默认：每个聚类的前 50 个基因
+   - 过滤标准：
+     - 调整后的 p 值 < 0.05
+     - 平均对数 2 倍变化 > 0.25
+     - 最小百分比 > 0.1
+   - 如果通过过滤的基因少于 50 个，则使用所有通过的基因
 
-2. **Parallel Processing**:
-   - `max_workers`: Controls parallel processing threads
-   - Recommended: 80% of available CPU cores
-   - Example: For a 16-core machine, set to 13
+2. **并行处理**：
+   - `max_workers`：控制并行处理线程
+   - 推荐：可用 CPU 核心的 80%
+   - 示例：对于 16 核机器，设置为 13
 
-3. **Additional Context** (optional):
-   - Use `additional_info` to provide experimental context
-   - Examples:
-     - Treatment conditions: "Samples were antibody-treated"
-     - Analysis focus: "Please carefully distinguish between cancer and non-cancer cells"
-   - Tip: Compare results with and without additional context
+3. **附加上下文**（可选）：
+   - 使用 `additional_info` 提供实验上下文
+   - 示例：
+     - 处理条件："样本经过抗体处理"
+     - 分析重点："请仔细区分癌细胞和非癌细胞"
+   - 提示：比较有无附加上下文的结果
 
-### Output Files
+### 输出文件
 
-The analysis generates two files:
-1. `my_annotation_full.csv`: Complete conversation history
-2. `my_annotation_summary.csv`: Condensed results summary
+分析会生成两个文件：
+1. `my_annotation_full.csv`：完整的对话历史
+2. `my_annotation_summary.csv`：浓缩的结果摘要
 
-### Tips for Optimal Results
+### 获得最佳结果的提示
 
-1. **Resource Management**:
-   - Monitor system resources when setting `max_workers`
-   - Start with recommended 75% of cores and adjust if needed
+1. **资源管理**：
+   - 在设置 `max_workers` 时监控系统资源
+   - 从推荐的核心数量的 75% 开始，并根据需要调整
 
-2. **Marker Gene Selection**:
-   - Default 50 genes works well for most cases
-   - Increase for more complex cell types
-   - Decrease if running into API rate limits
+2. **标记基因选择**：
+   - 默认的 50 个基因适用于大多数情况
+   - 对于更复杂的细胞类型，增加数量
+   - 如果遇到 API 速率限制，减少数量
 
-3. **Context Optimization**:
-   - Test runs with and without additional context
-   - Keep context concise and relevant
-   - Document any context-dependent variations in results
+3. **上下文优化**：
+   - 测试有无附加上下文的运行
+   - 保持上下文简洁相关
+   - 记录结果中任何依赖上下文的变化
