@@ -55,6 +55,7 @@ runCASSIA_pipeline(
 
 CASSIA的注释结果可以直接转化到Seurat中使用下面的方法
 
+```R
 cassia_results_path <- "path to your _score.csv" #填入评估agent的输出文件
 
 # Test the function
@@ -64,6 +65,7 @@ seurat_obj <- add_cassia_to_seurat(
   cluster_col = "celltype", # Seurat文件中对应的标注列
   cassia_cluster_col="True.Cell.Type" #CASSIA结果中的簇名，如果没有更改不需要特别指定
 )
+```
 
 
 ### 性能提示
