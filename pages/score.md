@@ -63,7 +63,7 @@ runCASSIA_score_batch(
 
 - **90-100**: 高置信度，强有力证据
 - **76-89**: 良好置信度，充分证据
-- **<75**: 低置信度，需要通过 Annotation Boost Agent 和 Compare Agent 运行
+- **<75**: 低置信度，需要通过 Annotation Boost Agent 和 Compare Agent 进行验证
 
 # 报告生成
 

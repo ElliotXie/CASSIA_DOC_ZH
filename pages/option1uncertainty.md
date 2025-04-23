@@ -1,14 +1,18 @@
 # 不确定性量化
 
 CASSIA 中的不确定性量化通过多次分析迭代和相似性评分来评估注释可靠性。这个过程对以下方面至关重要：
+
 - 识别稳健的细胞类型分配
 - 检测混合或模糊的聚类
 - 量化注释置信度
-- 理解预测变异性
+- 理解预测的不稳定程度
 
 ### 多次迭代分析
 
 #### 基本用法
+
+先使用CASSIA_batch_n_times运行多次分析，然后使用CASSIA_similarity_score_batch计算相似性评分，并且得到最终的注释结果。
+
 ```R
 
 # 运行多次分析
@@ -29,8 +33,8 @@ runCASSIA_batch_n_times(
 
 
     # 处理控制
-    max_workers = 4,        # 总并行工作线程数
-    batch_max_workers = 2   # 每批次的工作线程数
+    max_workers = 4,        # 每批次的工作线程数
+    batch_max_workers = 2   # 指定多少个批次同时运行
 )
 ```
 
@@ -58,7 +62,7 @@ runCASSIA_batch_n_times(
 runCASSIA_similarity_score_batch(
     # 输入参数
     marker = marker_data,
-    file_pattern = "my_annottaion_repeat_*_full.csv",
+    file_pattern = "my_annottaion_repeat_*_full.csv", # 需要匹配的文件模式
     output_name = "similarity_results",
     
     
@@ -73,7 +77,7 @@ runCASSIA_similarity_score_batch(
 )
 ```
 
-#### 评分参数
+#### 计算相似性评分的参数解释
 
 1. **权重配置**:
    - `main_weight`: 主细胞类型匹配的重要性（0-1）
@@ -90,8 +94,8 @@ runCASSIA_similarity_score_batch(
 1. **相似性评分**:
    - 范围：0（完全不同）到 1（完全相同）
    - 解释指南：
-     - 0.9：高一致性
-     - 0.75-0.9：中等一致性
+     - 0.9：极高一致性
+     - 0.75-0.9：中高一致性
      - <0.75：低一致性
 
 #### 故障排除
@@ -104,6 +108,6 @@ runCASSIA_similarity_score_batch(
    - 审查标记基因质量
    - 使用注释增强功能
    - 审查聚类异质性
-   - 考虑生物变异性
    - 增加迭代次数
    - 尝试亚聚类
+   - 考虑加强质量控制

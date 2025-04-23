@@ -25,13 +25,12 @@ compareCelltypes(
 2. **celltypes**: 
    - 类型：字符向量
    - 您要比较的细胞类型列表
-   - 最大推荐：4-5 种细胞类型以获得最佳结果
+   - 最大推荐：2-5 种细胞类型以获得最佳结果
    - 示例：`c("Plasma Cells", "IgA-secreting Plasma Cells", "IgG-secreting Plasma Cells")`
 
 3. **marker**: 
    - 类型：字符串
-   - 以逗号分隔的标记基因列表
-   - 可以包括上调和下调的标记物
+   - 以逗号分隔的标记基因列表,即该聚类显著表达的基因
    - 示例："IGLL5, IGLV6-57, JCHAIN, FAM92B, IGLC3"
 
 4. **species**: 
