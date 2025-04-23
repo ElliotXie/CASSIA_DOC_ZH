@@ -1,20 +1,20 @@
 # 快速模式
 
-CASSIA 的快速模式提供了一个简化的、单行解决方案，用于运行完整的分析流程。该模式在单个函数调用中结合了注释、评分和注释增强，使用优化的默认参数。
+CASSIA 的快速模式提供了一个简化的、一站式解决方案。该模式在单个函数调用中结合了注释、评分和注释增强等智能体。
 
-总的来说，CASSIA的 注释agent（智能体） 和 检查agent 首先会接收到marker文件，并互相沟通以得出初步的注释结果与逻辑推理，之后 评估agent 会对注释的结果进行打分，如果分数低于阈值的注释会被送到 注释增强agent 中继续分析，注释增强agent 可以阅读整个marker file而不是仅仅前50。这一个工作流结束之后，你会得到三份文件，分别是基本注释的报告，注释结果的表格，和注释增强的结果报告。用户也可以通过
+总的来说，CASSIA的 主要注释agent（智能体） 和 检查agent 首先会接收到marker文件，并互相沟通以得出初步的注释结果与逻辑推理，之后 评估agent 会对注释的结果进行打分，如果分数低于阈值的注释会被送到 注释增强agent 中继续分析，注释增强agent 可以阅读整个marker文件而不是仅仅topn的marker。这一个工作流结束之后，你会得到三份文件，分别是基本注释的报告，注释结果的表格，和注释增强的结果报告。
 
 
 ### 选定要使用的模型
 
-如果您使用 OpenRouter 作为提供商，可以自由指定几乎任何大模型，你还可以为runCASSIA_pipeline的每个agent指定不同的模型，推荐评分agent和主要注释agent选择不同的大模型，以下是一些模型推荐：
+如果你使用 OpenRouter 作为提供商，即可以自由使用几乎任何大模型，你还可以为runCASSIA_pipeline的每个agent指定不同的模型，推荐评分agent和主要注释agent选择不同的大模型，以下是一些模型推荐：
 
 - **Claude 3.5 Sonnet** (性能最佳)
     - 模型 ID: `"anthropic/claude-3.5-sonnet"`
 - **GPT-4o** (均衡选项)
     - 模型 ID: `"openai/gpt-4o-2024-11-20"`
 - **deepseekv3** (几乎免费且效果接近4o，最推荐)
-    - 模型 ID: `"deepseek/deepseek-chat-v3-0324"` 或者 "deepseek/deepseek-chat-v3-0324:free" (这个是免费的！但每天有50次限制，如果充值10🔪放openrouter里，限制提高到1000次每天)
+    - 模型 ID: `"deepseek/deepseek-chat-v3-0324"` 或者 "deepseek/deepseek-chat-v3-0324:free" (免费！每天有50次限制，但如果充值10美金到openrouter里，限制提高到1000次每天。)
 
 
 ### 基本用法
@@ -42,11 +42,11 @@ runCASSIA_pipeline(
     
     # 模型配置
     annotation_model = "gpt-4o",             # 用于注释的模型
-    annotation_provider = "openai",         # 用于注释的提供商
+    annotation_provider = "openai",         # 用于注释的模型的提供商
     score_model = "anthropic/claude-3.5-sonnet",  # 用于评分的模型
-    score_provider = "openrouter",         # 用于评分的提供商
+    score_provider = "openrouter",         # 用于评分的模型的提供商
     annotationboost_model="anthropic/claude-3.5-sonnet", #用于注释增强的模型
-    annotationboost_provider="openrouter", #用于注释增强的提供商
+    annotationboost_provider="openrouter", #用于注释增强的模型的提供商
     
     # 分析参数
     score_threshold = 75,     # 最低可接受分数
@@ -81,7 +81,7 @@ seurat_obj <- add_cassia_to_seurat(
 
 
 ### 性能提示
-- 为获得最佳性能，根据您系统的 CPU 核心数调整 `max_workers`
+- 为获得最佳性能，请根据系统的 CPU 核心数调整 `max_workers`
 - 使用 `additional_info` 提供相关的实验上下文
 - 监控 `score_threshold` 以平衡严格性和吞吐量
 
