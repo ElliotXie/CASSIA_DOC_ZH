@@ -2,18 +2,19 @@
 
 **单簇 CASSIA**
 
-分析单个标记基因簇以确定细胞类型。
+注释单个聚类，适合有单独需要处理的聚类和对应标记基因的情况。（一般情况下更多地使用下一节的批处理注释）
 
 ### 示例
 
 如果您使用 OpenRouter 作为提供商，可以自由指定几乎任何大模型，以下是一些模型推荐：
 
-- **Claude 3.5 Sonnet** (性能最佳，价格稍高)
+- **Claude 3.5 Sonnet** (性能最佳)
     - 模型 ID: `"anthropic/claude-3.5-sonnet"`
 - **GPT-4o** (均衡选项)
     - 模型 ID: `"openai/gpt-4o-2024-11-20"`
-- **deepseekv3** (几乎免费效果且类似4o)
-    - 模型 ID: `"deepseek/deepseek-chat-v3-0324"`
+- **deepseekv3** (几乎免费且效果接近4o，最推荐)
+    - 模型 ID: `"deepseek/deepseek-chat-v3-0324"` 或者 "deepseek/deepseek-chat-v3-0324:free" (这个是免费的！但每天有50次限制，如果充值10🔪放openrouter里，限制提高到1000次每天)
+
 
 #### 示例代码
 
